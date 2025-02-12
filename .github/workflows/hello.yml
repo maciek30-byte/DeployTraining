@@ -1,8 +1,6 @@
 name: Hello world!
-
 on:
   workflow_dispatch:
-
 jobs:
   app-setup:
     runs-on: ubuntu-latest
@@ -10,20 +8,31 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Configure Node.js
+      - name: Configure node
         uses: actions/setup-node@v4
         with:
           node-version-file: '.nvmrc'
-          cache: 'pnpm'
 
-      - name: Install pnpm globally
-        run: npm install -g pnpm
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: latest
 
-      - name: Verify pnpm installation
-        run: pnpm --version
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
       - name: Greeting
-        run: echo "Great work!" >> $GITHUB_STEP_SUMMARY
+        run: echo "Brawo! Znakomita robota!" >> $GITHUB_STEP_SUMMARY
