@@ -14,3 +14,7 @@ describe('calculateUserInput', () => {
         expect(result).toBe(0)
     })
 })
+
+describe('calculateUserInput', () => {
+    it('should return', () => {})
+})
