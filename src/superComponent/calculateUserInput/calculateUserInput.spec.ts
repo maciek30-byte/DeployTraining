@@ -16,5 +16,10 @@ describe('calculateUserInput', () => {
 })
 
 describe('calculateUserInput', () => {
-    it('should return', () => {})
+    it('should return last one element from array', () => {
+        const arr = [1,2,3,4]
+        const lastElement = arr[arr.length-1]
+
+        expect(lastElement).toBe(4)
+    })
 })
