@@ -1,15 +1,17 @@
 name: Hello world!
+
 on:
-push:
-  branches:
-    - master
-  paths-ignore:
-        - '**/*.spec.ts'
-        - '**/*.spec.js'
-        - '**/*.spec.tsx'
-        - '**/*.spec.jsx'
-        - '**/__tests__/**'
-        - '**/tests/**'
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - '**/*.spec.ts'
+      - '**/*.spec.js'
+      - '**/*.spec.tsx'
+      - '**/*.spec.jsx'
+      - '**/__tests__/**'
+      - '**/tests/**'
+
 jobs:
   app-setup:
     runs-on: ubuntu-latest
