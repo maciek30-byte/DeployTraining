@@ -1,17 +1,11 @@
-name: Hello world!
+name: Deploy to Production
 
 on:
   push:
     branches:
       - master
       - main
-    paths-ignore:
-      - '**/*.spec.ts'
-      - '**/*.spec.js'
-      - '**/*.spec.tsx'
-      - '**/*.spec.jsx'
-      - '**/__tests__/**'
-      - '**/tests/**'
+  merge_group:  # Dodane, aby uruchomić po mergu PR
 
 jobs:
   app-setup:
@@ -30,19 +24,6 @@ jobs:
         with:
           version: latest
 
-      - name: Get pnpm store directory
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
-
-      - name: Setup pnpm cache
-        uses: actions/cache@v3
-        with:
-          path: ${{ env.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
-
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
@@ -53,7 +34,7 @@ jobs:
         run: pnpm install -g vercel@latest
 
       - name: Deploy to Vercel
-        if: ${{ github.event.inputs.deploy-vercel == 'true' }}
+        if: github.ref == 'refs/heads/main'
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: vercel deploy --token ${VERCEL_TOKEN} --prod --yes
