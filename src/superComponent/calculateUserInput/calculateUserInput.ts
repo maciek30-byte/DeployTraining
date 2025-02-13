@@ -7,6 +7,5 @@ export const displayLastExpenseValue = (arrayToCheck: number[])=>{
 }
 
 export const removeLastElementFromArray = (array:number[])=>{
-
     return array.slice(0, array.length-1)
 }
