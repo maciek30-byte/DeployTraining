@@ -36,3 +36,6 @@ jobs:
 
       - name: Greeting
         run: echo "Brawo! Znakomita robota!" >> $GITHUB_STEP_SUMMARY
+
+      - name: Deploy to Vercel
+        run: vercel --token ${{ secrets.VERCEL_TOKEN }}
