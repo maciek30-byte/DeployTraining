@@ -39,8 +39,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Greeting
-        run: echo "Brawo! Znakomita robota!" >> $GITHUB_STEP_SUMMARY
+      - name: Run unit test
+        run: pnpm test
 
       - name: Install Vercel CLI
         run: pnpm install -g vercel@latest
