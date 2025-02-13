@@ -1,11 +1,15 @@
 name: Hello world!
 on:
-  workflow_dispatch:
-    inputs:
-      deploy-vercel:
-        type: boolean
-        description: Enable Vercel deployment
-        default: true
+push:
+  branches:
+    - master
+  paths-ignore:
+        - '**/*.spec.ts'
+        - '**/*.spec.js'
+        - '**/*.spec.tsx'
+        - '**/*.spec.jsx'
+        - '**/__tests__/**'
+        - '**/tests/**'
 jobs:
   app-setup:
     runs-on: ubuntu-latest
