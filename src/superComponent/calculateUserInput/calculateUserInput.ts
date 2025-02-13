@@ -3,5 +3,5 @@ export const calculateUserInput = (arrayToSum: number[])=>{
 }
 
 export const displayLastExpenseValue = (arrayToCheck: number[])=>{
-    return arrayToCheck[arrayToCheck.length-1]
+    return arrayToCheck[arrayToCheck.length-1+2]
 }
