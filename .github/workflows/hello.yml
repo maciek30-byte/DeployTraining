@@ -3,6 +3,11 @@ on:
   workflow_dispatch:
 jobs:
   app-setup:
+    inputs:
+      deploy-vercel:
+        type: boolean
+        description: Enable Vercel deployment
+        default: true
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
