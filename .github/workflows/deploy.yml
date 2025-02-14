@@ -1,0 +1,28 @@
+name: Manual Production Deployment
+
+on:
+  workflow_dispatch: # Ręczne uruchamianie workflowa
+
+jobs:
+  deploy:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    environment:
+      name: 'Production'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Configure node
+        uses: ./.github/actions/setup-project
+
+      - name: Build app
+        run: npm run build
+
+      - name: Deploy app to Vercel (Production)
+        uses: ./.github/actions/deploy-vercel
+        with:
+          mode: 'production'
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+
